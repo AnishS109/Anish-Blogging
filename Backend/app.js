@@ -13,14 +13,8 @@ import UpdatePost from "./Controller/UpdatePost-controller.js"
 import CommentPost from "./Controller/CommentPost-controller.js"
 import getComments from "./Controller/GetComments-controller.js"
 import delComments from "./Controller/deleteComment-controller.js"
-import path from "path"
-import { fileURLToPath } from 'url';
 
 const app = express()
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 
 app.use("/",router)
 app.use("/login",SignInUser)
@@ -34,11 +28,6 @@ app.use("/comment", CommentPost)
 app.use("/get", getComments)
 app.use("/delete-com", delComments)
 
-app.use(express.static(path.join(__dirname, '../Front_End/dist')));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../Front_End/dist', 'index.html'));
-});
 const PORT = 5000
 app.listen(PORT,() => {
 console.log(`http://localhost:${PORT}`);
