@@ -52,7 +52,7 @@ const CreatePost = () => {
         formData.append("file", file);
 
         try {
-          const response = await fetch("https://anish-blogging.onrender.com/file/upload", {
+          const response = await fetch("https://anish-blogging-backend.onrender.com/file/upload", {
             method: "POST",
             body: formData,
           });
@@ -90,7 +90,7 @@ const CreatePost = () => {
     }
 
     try {
-      const response = await fetch("https://anish-blogging.onrender.com/post/create", {
+      const response = await fetch("https://anish-blogging-backend.onrender.com/post/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(post),

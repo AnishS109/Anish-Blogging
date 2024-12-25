@@ -21,7 +21,7 @@ const Comments = ({ post }) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await fetch(`https://anish-blogging.onrender.com/get/comments/${post.title}`);
+        const response = await fetch(`https://anish-blogging-backend.onrender.com/get/comments/${post.title}`);
         const data = await response.json();
         if (response.ok) {
           setComments(data);
@@ -44,7 +44,7 @@ const Comments = ({ post }) => {
 
   const addComment = async () => {
     try {
-      const response = await fetch("https://anish-blogging.onrender.com/comment/create-comment", {
+      const response = await fetch("https://anish-blogging-backend.onrender.com/comment/create-comment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(commentDetails),

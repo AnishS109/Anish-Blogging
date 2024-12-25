@@ -29,7 +29,7 @@ const DetailPost = () => {
   useEffect(() => {
     const fetchDetailPost = async () => {
       try {
-        const response = await fetch(`https://anish-blogging.onrender.com/detail/post/${selected}`);
+        const response = await fetch(`https://anish-blogging-backend.onrender.com/detail/post/${selected}`);
         const data = await response.json();
 
         if (response.ok) {
@@ -47,7 +47,7 @@ const DetailPost = () => {
 
   const handleDelete = async (title) => {
     try {
-      const response = await fetch(`https://anish-blogging.onrender.com/delete/del/${title}`, {
+      const response = await fetch(`https://anish-blogging-backend.onrender.com/delete/del/${title}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });

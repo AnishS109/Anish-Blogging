@@ -10,7 +10,7 @@ const SingleComment = ({ comment }) => {
 
   const handleDelete = async (postTitle) => {
     try {
-      const response = await fetch(`https://anish-blogging.onrender.com/delete-com/del/${postTitle}`, {
+      const response = await fetch(`https://anish-blogging-backend.onrender.com/delete-com/del/${postTitle}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
