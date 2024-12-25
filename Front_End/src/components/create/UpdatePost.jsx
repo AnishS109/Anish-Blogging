@@ -49,7 +49,7 @@ const UpdatePost = () => {
   useEffect(() => {
     const fetchDetailPost = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/detail/post/${updatePostTitle}`);
+        const response = await fetch(`https://anish-blogging.onrender.com/detail/post/${updatePostTitle}`);
         const data = await response.json();
         if(data){
           setPost(data)
@@ -70,7 +70,7 @@ const UpdatePost = () => {
         formData.append("file", file);
 
         try {
-          const response = await fetch("http://localhost:5000/file/upload", {
+          const response = await fetch("https://anish-blogging.onrender.com/file/upload", {
             method: "POST",
             body: formData,
           });
@@ -107,7 +107,7 @@ const UpdatePost = () => {
     }
   
     try {
-      const response = await fetch(`http://localhost:5000/update/update-post/${updatePostTitle}`, {
+      const response = await fetch(`https://anish-blogging.onrender.com/update/update-post/${updatePostTitle}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(post),

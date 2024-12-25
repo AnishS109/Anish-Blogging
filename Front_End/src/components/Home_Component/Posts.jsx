@@ -12,7 +12,7 @@ const Posts = () => {
 
   useEffect(() => {
     const fetchData = async() => {
-      const response = await fetch(`http://localhost:5000/get/post/${category ? category : "All"}`)
+      const response = await fetch(`https://anish-blogging.onrender.com/get/post/${category ? category : "All"}`)
       const data = await response.json()
       
       if(response.ok){
