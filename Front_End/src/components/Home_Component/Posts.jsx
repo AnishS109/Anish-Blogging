@@ -14,6 +14,7 @@ const Posts = () => {
     const fetchData = async() => {
       const response = await fetch(`https://anish-blogging-2.onrender.com/get/post/${category ? category : "All"}`)
       const data = await response.json()
+      // console.log(data.picture);
       
       if(response.ok){
         setPosts(data)

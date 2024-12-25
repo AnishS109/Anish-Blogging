@@ -10,9 +10,8 @@ import Comments from "./Comments";
 
 const DetailPost = () => {
   const { account, setUpdatePostTitle } = useContext(DataContext);
-
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
+  
   const [detailPost, setDetailPost] = useState(null);
   const [postMsg, setPostMsg] = useState("");
   const [open, setOpen] = useState(false);
@@ -59,7 +58,7 @@ const DetailPost = () => {
 
         setTimeout(() => {
           setSuccessDialog(false);
-          navigate("/home")
+          navigate("/home");
         }, 1000);
       } 
     } catch (error) {
@@ -71,52 +70,68 @@ const DetailPost = () => {
   return (
     <Layout>
       {detailPost ? (
-        <div className="m-7 mt-3 border border-stone-300 rounded-lg pl-5 pr-5 pb-5 flex flex-col">
-          <Typography sx={{ color: "#878787", mt: "5px" }}>{detailPost.categories}</Typography>
+        <Box 
+          className="m-7 mt-3 border border-stone-300 rounded-lg pl-5 pr-5 pb-5 flex flex-col"
+          sx={{
+            margin: "1vw auto",
+            padding: { xs: "2vw", sm: "3vw", md: "4vw" },
+            borderRadius: "8px",
+            maxWidth: "1540px",
+          }}
+        >
+          <Typography 
+            sx={{ 
+              color: "#878787", 
+              marginTop: "5px", 
+              fontSize: { xs: "0.8rem", sm: "1rem", md: "1.2rem" },
+              textAlign: "left",
+            }}
+          >
+            {detailPost.categories}
+          </Typography>
 
           <img
-            src={detailPost.picture}
+            src="https://images.pexels.com/photos/262508/pexels-photo-262508.jpeg?cs=srgb&dl=pexels-pixabay-262508.jpg&fm=jpg"
+            alt="Post"
             className="border-b border-stone-300"
             style={{
               width: "100%",
-              height: "100%",
+              height: "auto",
               maxHeight: "500px",
               objectFit: "contain",
               borderRadius: "8px",
-              paddingBottom: "30px",
+              marginBottom: "30px",
             }}
           />
 
           {account.username === detailPost.username && (
-            <Box sx={{ textAlign: "right" }}>
+            <Box sx={{ textAlign: "right", marginBottom: "15px" }}>
               <Link to={"/update"}>
-              <ModeEditIcon
-                sx={{
-                  mx: "10px",
-                  mt: "15px",
-                  cursor: "pointer",
-                  border: "1px solid gray",
-                  borderRadius: "5px",
-                  fontSize: "30px",
-                  p: "3px",
-                  "&:hover": {
-                    bgcolor: "black",
-                    color: "white",
-                  },
-                }}
-                onClick={() => setUpdatePostTitle(detailPost.title)}
-              />
+                <ModeEditIcon
+                  sx={{
+                    mx: "10px",
+                    cursor: "pointer",
+                    border: "1px solid gray",
+                    borderRadius: "5px",
+                    fontSize: "30px",
+                    padding: "3px",
+                    "&:hover": {
+                      bgcolor: "black",
+                      color: "white",
+                    },
+                  }}
+                  onClick={() => setUpdatePostTitle(detailPost.title)}
+                />
               </Link>
 
               <DeleteIcon
                 sx={{
                   mx: "10px",
-                  mt: "15px",
                   cursor: "pointer",
                   border: "1px solid gray",
                   borderRadius: "5px",
                   fontSize: "30px",
-                  p: "3px",
+                  padding: "3px",
                   "&:hover": {
                     bgcolor: "black",
                     color: "white",
@@ -129,7 +144,7 @@ const DetailPost = () => {
 
           <Typography
             sx={{
-              fontSize: "28px",
+              fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" },
               textAlign: "center",
               fontWeight: "600",
             }}
@@ -137,7 +152,7 @@ const DetailPost = () => {
             {detailPost.title}
           </Typography>
 
-          <Box sx={{ color: "#878787", mt: "30px" }}>
+          <Box sx={{ color: "#878787", marginTop: "30px" }}>
             <Typography>
               <span className="text-stone-700 font-bold">Created By: </span>
               {detailPost.username}
@@ -149,10 +164,10 @@ const DetailPost = () => {
             </Typography>
           </Box>
 
-          <Box sx={{ mt: "50px" }}>
+          <Box sx={{ marginTop: "50px" }}>
             <Typography
               sx={{
-                fontSize: "23px",
+                fontSize: { xs: "1rem", sm: "1.2rem", md: "1.5rem" },
                 fontFamily: "roboto",
               }}
             >
@@ -160,13 +175,21 @@ const DetailPost = () => {
             </Typography>
           </Box>
 
-          <Comments post={detailPost}/>
-
-        </div>
+          <Comments post={detailPost} />
+        </Box>
       ) : (
-        <div className="flex justify-center items-center w-[100%] mt-[30vh] mb-[30vh]">
-          <Loader/>
-        </div>
+        <Box
+          className="flex justify-center items-center"
+          sx={{
+            width: "100%",
+            height: "60vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Loader />
+        </Box>
       )}
 
       <Dialog open={open} onClose={() => setOpen(false)}>

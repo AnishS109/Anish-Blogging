@@ -7,8 +7,14 @@ const Banner = () => {
       sx={{
         position: "relative",
         backgroundImage: `url(${BannerIMG})`,
-        height: "35vh",
-        backgroundSize: "cover",
+        height: {
+          md:"36vh",
+          xs:"30vh"
+        },
+        backgroundSize: {
+          md:"cover",
+          xs:"covered"
+        },
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         display: "flex",
