@@ -40,7 +40,7 @@ const storage = new GridFsStorage({
 
     return {
       bucketName: "photos", // Specify the bucket name
-      filename: `${Date.now()}-${file.originalname}`, // Unique filename to prevent overwrites
+      filename: `${file.originalname}`, // Unique filename to prevent overwrites
     };
   },
 });
