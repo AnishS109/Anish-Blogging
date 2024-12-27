@@ -94,6 +94,15 @@ const Login = () => {
     }
   }
 
+  useEffect(() => {
+    // Redirect or reload page after 1 second
+    const timer = setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+
+    return () => clearTimeout(timer); // Cleanup timeout on unmount
+  }, []);
+
   return (
     <>
       <Box
