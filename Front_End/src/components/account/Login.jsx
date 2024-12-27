@@ -1,7 +1,7 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import Logo from "../../assets/Logo.png";
 import BackgroundLogin from "../../assets/BackgroundLogin.jpeg";
-import { useContext, useReducer, useState, useEffect } from "react";
+import { useContext, useReducer, useState } from "react";
 import { data, NavLink, useNavigate } from "react-router-dom";
 import { DataContext } from "../../Context/DataProvider";
 
@@ -93,20 +93,6 @@ const Login = () => {
       console.log(data)
     }
   }
-
-  useEffect(() => {
-    const hasRefreshed = localStorage.getItem("loginPageRefreshed");
-
-    if (!hasRefreshed) {
-      // Set the flag to prevent future refreshes
-      localStorage.setItem("loginPageRefreshed", "true");
-
-      // Refresh the page
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
-    }
-  }, [hasRefreshed]);
 
   return (
     <>
