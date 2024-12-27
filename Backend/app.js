@@ -1,5 +1,6 @@
 import express from "express"
 import ConnectionDB from "./database/database.js"
+import cors from "cors";
 
 import router from "./routes/route.js"
 
@@ -15,6 +16,8 @@ import getComments from "./Controller/GetComments-controller.js"
 import delComments from "./Controller/deleteComment-controller.js"
 
 const app = express()
+
+app.use(cors());
 
 app.use("/",router)
 app.use("/login",SignInUser)
