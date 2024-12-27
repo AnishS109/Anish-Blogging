@@ -3,8 +3,6 @@ import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { DataContext } from '../../Context/DataProvider'
 
-import shortCut from "../../assets/shortCut.jpeg"
-
 const SinglePost = ({post}) => {
   
   const setText = (str, limit) => {
@@ -13,11 +11,18 @@ const SinglePost = ({post}) => {
 
   const {setSelected} = useContext(DataContext)
 
-  // console.log(post.picture);  
+  // console.log(post.picture); 
+  
+  const backendURL = "https://anish-blogging-2.onrender.com";
 
-
-  const url = "https://images.pexels.com/photos/262508/pexels-photo-262508.jpeg?cs=srgb&dl=pexels-pixabay-262508.jpg&fm=jpg"
-
+  // Extract the part after "file/"
+  const picturePath = post.picture ? post.picture.split('/file/')[1] : null;
+  
+  const url = picturePath 
+    ? `${backendURL}/file/${picturePath}` 
+    : "https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80";
+  
+  
   return (
 
     //__________________POST CARD CONTAINER___________
