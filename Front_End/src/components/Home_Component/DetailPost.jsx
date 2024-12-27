@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import Layout from "../../Layout/Layout";
 import { DataContext } from "../../Context/DataProvider";
-import { Box, Button, Dialog, DialogActions, DialogContent, Typography } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, Typography, CircularProgress } from "@mui/material";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,24 +11,35 @@ import Comments from "./Comments";
 const DetailPost = () => {
   const { account, setUpdatePostTitle } = useContext(DataContext);
   const navigate = useNavigate();
-  
+
   const [detailPost, setDetailPost] = useState(null);
   const [postMsg, setPostMsg] = useState("");
   const [open, setOpen] = useState(false);
-  const [successDialog, setSuccessDialog] = useState(false); 
+  const [successDialog, setSuccessDialog] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true); // Added state for image loading
+  const [loading, setLoading] = useState(true); // Added loading state for post fetch
 
   const selected = useContext(DataContext).selected || localStorage.getItem("selectedPost");
 
+  const backendURL = "https://anish-blogging-2.onrender.com";
+
+  // Calculate the image URL
+  const picturePath = detailPost?.picture ? detailPost.picture.split("/file/")[1] : null;
+  const urll = picturePath
+    ? `${backendURL}/file/${picturePath}`
+    : "https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80";
+
   useEffect(() => {
     if (selected) {
-      localStorage.setItem("selectedPost", selected); 
-    } 
+      localStorage.setItem("selectedPost", selected);
+    }
   }, [selected]);
 
   useEffect(() => {
     const fetchDetailPost = async () => {
       try {
-        const response = await fetch(`https://anish-blogging-2.onrender.com/detail/post/${selected}`);
+        setLoading(true); // Set loading to true before fetching data
+        const response = await fetch(`${backendURL}/detail/post/${selected}`);
         const data = await response.json();
 
         if (response.ok) {
@@ -38,6 +49,8 @@ const DetailPost = () => {
         }
       } catch (error) {
         console.log("ERROR IN DETAIL POST", error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching the data
       }
     };
 
@@ -46,21 +59,21 @@ const DetailPost = () => {
 
   const handleDelete = async (title) => {
     try {
-      const response = await fetch(`https://anish-blogging-2.onrender.com/delete/del/${title}`, {
+      const response = await fetch(`${backendURL}/delete/del/${title}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
 
       if (response.ok) {
         setPostMsg("Post Successfully Deleted");
-        setOpen(false); 
-        setSuccessDialog(true); 
+        setOpen(false);
+        setSuccessDialog(true);
 
         setTimeout(() => {
           setSuccessDialog(false);
           navigate("/home");
         }, 1000);
-      } 
+      }
     } catch (error) {
       console.log("ERROR IN DELETING", error);
       setPostMsg("An error occurred while deleting the post");
@@ -69,8 +82,23 @@ const DetailPost = () => {
 
   return (
     <Layout>
-      {detailPost ? (
-        <Box 
+      {loading ? (
+        // Show loader while fetching post details
+        <Box
+          className="flex justify-center items-center"
+          sx={{
+            width: "100%",
+            height: "60vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Loader />
+        </Box>
+      ) : (
+        // Show post details once data is fetched
+        <Box
           className="m-7 mt-3 border border-stone-300 rounded-lg pl-5 pr-5 pb-5 flex flex-col"
           sx={{
             margin: "1vw auto",
@@ -79,10 +107,10 @@ const DetailPost = () => {
             maxWidth: "1540px",
           }}
         >
-          <Typography 
-            sx={{ 
-              color: "#878787", 
-              marginTop: "5px", 
+          <Typography
+            sx={{
+              color: "#878787",
+              marginTop: "5px",
               fontSize: { xs: "0.8rem", sm: "1rem", md: "1.2rem" },
               textAlign: "left",
             }}
@@ -90,19 +118,36 @@ const DetailPost = () => {
             {detailPost.categories}
           </Typography>
 
-          <img
-            src="https://images.pexels.com/photos/262508/pexels-photo-262508.jpeg?cs=srgb&dl=pexels-pixabay-262508.jpg&fm=jpg"
-            alt="Post"
-            className="border-b border-stone-300"
-            style={{
+          {/* Image with loading spinner */}
+          <Box
+            sx={{
+              position: "relative",
               width: "100%",
-              height: "auto",
+              height: "100%",
               maxHeight: "500px",
-              objectFit: "contain",
-              borderRadius: "8px",
               marginBottom: "30px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
-          />
+          >
+            {imageLoading && <CircularProgress />} {/* Loading indicator */}
+            <img
+              src={urll}
+              alt="Post"
+              onLoad={() => setImageLoading(false)} // Hide spinner once loaded
+              onError={() => setImageLoading(false)} // Hide spinner on error
+              className="border-b border-stone-300"
+              style={{
+                width: "100%",
+                height: "100%",
+                maxHeight:"500px",
+                objectFit: "contain",
+                borderRadius: "8px",
+                display: imageLoading ? "none" : "block", // Hide image while loading
+              }}
+            />
+          </Box>
 
           {account.username === detailPost.username && (
             <Box sx={{ textAlign: "right", marginBottom: "15px" }}>
@@ -176,19 +221,6 @@ const DetailPost = () => {
           </Box>
 
           <Comments post={detailPost} />
-        </Box>
-      ) : (
-        <Box
-          className="flex justify-center items-center"
-          sx={{
-            width: "100%",
-            height: "60vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Loader />
         </Box>
       )}
 
