@@ -36,9 +36,10 @@ const CreatePost = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const placeholderImage = "https://images.pexels.com/photos/262508/pexels-photo-262508.jpeg?cs=srgb&dl=pexels-pixabay-262508.jpg&fm=jpg"
+  const placeholderImage =
+    "https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80";
 
-  const url = placeholderImage;
+  const url = post.picture || placeholderImage;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
