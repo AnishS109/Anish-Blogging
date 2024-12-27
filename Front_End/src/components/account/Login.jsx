@@ -95,12 +95,17 @@ const Login = () => {
   }
 
   useEffect(() => {
-    // Redirect or reload page after 1 second
-    const timer = setTimeout(() => {
-      window.location.reload();
-    }, 1000);
+    const hasRefreshed = localStorage.getItem("loginPageRefreshed");
 
-    return () => clearTimeout(timer); // Cleanup timeout on unmount
+    if (!hasRefreshed) {
+      // Set the flag to prevent future refreshes
+      localStorage.setItem("loginPageRefreshed", "true");
+
+      // Refresh the page
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    }
   }, []);
 
   return (
