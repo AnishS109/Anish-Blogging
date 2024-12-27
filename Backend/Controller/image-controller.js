@@ -27,7 +27,7 @@ export const UploadImage = (req,res) => {
 export const getImage = async (req, res) => {
   // console.log("Requested filename:", req.params.filename);
   try {
-    const file = await gfs.files.find({ filename: req.params.filename });
+    const file = await gfs.files.findOne({ filename: req.params.filename });
 
     if (!file) {
       return res.status(404).json({ msg: "File not found" });
