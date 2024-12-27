@@ -106,7 +106,7 @@ const Login = () => {
         window.location.reload();
       }, 1000);
     }
-  }, []);
+  }, [hasRefreshed]);
 
   return (
     <>
