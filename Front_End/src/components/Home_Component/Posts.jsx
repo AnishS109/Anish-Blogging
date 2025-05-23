@@ -15,7 +15,7 @@ const Posts = () => {
       setLoading(true); // Set loading to true before fetching
       try {
         const response = await fetch(
-          `http://localhost:5001/get/post/${
+          `https://anish-blogging-2.onrender.com/get/post/${
             category ? category : "All"
           }`
         );

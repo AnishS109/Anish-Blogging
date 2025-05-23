@@ -38,7 +38,7 @@ const UpdatePost = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const backendURL = "http://localhost:5001";
+  const backendURL = "https://anish-blogging-2.onrender.com";
 
   // Extract the part after "file/"
   const picturePath = post.picture ? post.picture.split('/file/')[1] : null;
@@ -55,7 +55,7 @@ const UpdatePost = () => {
   useEffect(() => {
     const fetchDetailPost = async () => {
       try {
-        const response = await fetch(`http://localhost:5001/detail/post/${updatePostTitle}`);
+        const response = await fetch(`https://anish-blogging-2.onrender.com/detail/post/${updatePostTitle}`);
         const data = await response.json();
         if(data){
           setPost(data)
@@ -76,7 +76,7 @@ const UpdatePost = () => {
         formData.append("file", file);
 
         try {
-          const response = await fetch("http://localhost:5001/file/upload", {
+          const response = await fetch("https://anish-blogging-2.onrender.com/file/upload", {
             method: "POST",
             body: formData,
           });
@@ -113,7 +113,7 @@ const UpdatePost = () => {
     }
   
     try {
-      const response = await fetch(`http://localhost:5001/update/update-post/${updatePostTitle}`, {
+      const response = await fetch(`https://anish-blogging-2.onrender.com/update/update-post/${updatePostTitle}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(post),
