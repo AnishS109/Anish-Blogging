@@ -94,7 +94,7 @@ const Login = () => {
       console.error("SOMETHING WENT WRONG" , error)
       console.log(data)
     } finally{
-      // setLoad(false)
+      setLoad(false)
     }
   }
 
