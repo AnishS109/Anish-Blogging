@@ -31,7 +31,7 @@ app.use("/comment", CommentPost)
 app.use("/get", getComments)
 app.use("/delete-com", delComments)
 
-const PORT = 5000
+const PORT = 5001
 app.listen(PORT,() => {
 console.log(`http://localhost:${PORT}`);
 })

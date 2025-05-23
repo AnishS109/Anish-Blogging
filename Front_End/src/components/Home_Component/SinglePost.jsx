@@ -13,7 +13,7 @@ const SinglePost = ({post}) => {
 
   // console.log(post.picture); 
   
-  const backendURL = "https://anish-blogging-2.onrender.com";
+  const backendURL = "http://localhost:5001";
 
   // Extract the part after "file/"
   const picturePath = post.picture ? post.picture.split('/file/')[1] : null;

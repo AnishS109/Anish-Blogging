@@ -21,7 +21,7 @@ const DetailPost = () => {
 
   const selected = useContext(DataContext).selected || localStorage.getItem("selectedPost");
 
-  const backendURL = "https://anish-blogging-2.onrender.com";
+  const backendURL = "http://localhost:5001";
 
   // Calculate the image URL
   const picturePath = detailPost?.picture ? detailPost.picture.split("/file/")[1] : null;

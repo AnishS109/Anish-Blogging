@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, TextField, Typography } from "@mui/material";
 import Logo from "../../assets/Logo.png";
 import BackgroundLogin from "../../assets/BackgroundLogin.jpeg";
 import { useContext, useReducer, useState } from "react";
@@ -15,6 +15,7 @@ const Login = () => {
       password:"",
     }
   }
+  const [load,setLoad] = useState(false)
 
   const reducer = (state,action) => {
     if(action.type === "SET_FORM"){
@@ -53,6 +54,7 @@ const Login = () => {
   const handleSubmit = async(e) => {
     e.preventDefault()
     // console.log(state.loginDetails);
+    setLoad(true)
 
     if(!state.loginDetails.username || !state.loginDetails.password){
       dispatchState({type:"SET_ERROR",payload:"All fields are required!"})
@@ -63,7 +65,7 @@ const Login = () => {
 
     try {
 
-      const response = await fetch("https://anish-blogging-2.onrender.com/login/user-login", {
+      const response = await fetch("http://localhost:5001/login/user-login", {
         method: "POST",
         headers:{ "Content-Type" : "application/json" },
         body: JSON.stringify(state.loginDetails)
@@ -91,6 +93,8 @@ const Login = () => {
     } catch (error) {
       console.error("SOMETHING WENT WRONG" , error)
       console.log(data)
+    } finally{
+      // setLoad(false)
     }
   }
 
@@ -201,7 +205,12 @@ const Login = () => {
             }}
           />
 
-          <Button
+          {load ? (
+            <>
+            <CircularProgress sx={{color:"blue"}} size={30}/>
+            </>
+          ) : (
+            <Button
             variant="contained"
             color="primary"
             fullWidth
@@ -217,6 +226,7 @@ const Login = () => {
           >
             Login
           </Button>
+          )}
 
           <Typography sx={{color:"black"}}>
             Don't have an account?

@@ -36,7 +36,7 @@ const CreatePost = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const backendURL = "https://anish-blogging-2.onrender.com";
+  const backendURL = "http://localhost:5001";
 
   // Extract the part after "file/"
   const picturePath = post.picture ? post.picture.split('/file/')[1] : null;
@@ -58,7 +58,7 @@ const CreatePost = () => {
         formData.append("file", file);
 
         try {
-          const response = await fetch("https://anish-blogging-2.onrender.com/file/upload", {
+          const response = await fetch("http://localhost:5001/file/upload", {
             method: "POST",
             body: formData,
           });
@@ -96,7 +96,7 @@ const CreatePost = () => {
     }
 
     try {
-      const response = await fetch("https://anish-blogging-2.onrender.com/post/create", {
+      const response = await fetch("http://localhost:5001/post/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(post),

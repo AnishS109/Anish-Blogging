@@ -14,10 +14,10 @@ const About = lazy(() => import("./components/pages/About"));
 const Contact = lazy(() => import("./components/pages/Contact"));
 
 function App() {
-  const { isAuthenticated} = useContext(DataContext);
+  const { isAuthenticated,account} = useContext(DataContext)
 
   const PrivateRoute = () => {
-    if (isAuthenticated) {
+    if (account.username) {
       return (
         <>
           <Outlet />
